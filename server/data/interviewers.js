@@ -1,0 +1,58 @@
+const interviewers = [
+  {
+    id: 1,
+    name: 'Priya Sharma',
+    specialty: 'Frontend Development',
+    experience: '6 years',
+    company: 'Google',
+    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Priya',
+    rating: 4.9,
+  },
+  {
+    id: 2,
+    name: 'Rahul Mehta',
+    specialty: 'Backend & System Design',
+    experience: '8 years',
+    company: 'Amazon',
+    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul',
+    rating: 4.8,
+  },
+  {
+    id: 3,
+    name: 'Ananya Krishnan',
+    specialty: 'Full-Stack Development',
+    experience: '5 years',
+    company: 'Microsoft',
+    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ananya',
+    rating: 4.7,
+  },
+  {
+    id: 4,
+    name: 'Vikram Singh',
+    specialty: 'DSA & Competitive Programming',
+    experience: '7 years',
+    company: 'Meta',
+    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Vikram',
+    rating: 4.9,
+  },
+  {
+    id: 5,
+    name: 'Sneha Patel',
+    specialty: 'Behavioral & HR',
+    experience: '10 years',
+    company: 'McKinsey',
+    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sneha',
+    rating: 4.8,
+  },
+  {
+    id: 6,
+    name: 'Arjun Nair',
+    specialty: 'React & Frontend Architecture',
+    experience: '4 years',
+    company: 'Flipkart',
+    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Arjun',
+    rating: 4.6,
+  },
+];
+
+module.exports = { interviewers };
