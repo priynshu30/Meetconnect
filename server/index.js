@@ -17,18 +17,34 @@ connectDB();
 // Middleware
 const allowedOrigins = [
   process.env.CLIENT_URL,
+  ...(process.env.CLIENT_URLS || '').split(',').map((origin) => origin.trim()),
   'http://localhost:5173',
   'http://localhost:5174',
+  'https://meetconnect-seven.vercel.app',
 ].filter(Boolean);
+
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true;
+  if (allowedOrigins.includes(origin)) return true;
+
+  try {
+    const { hostname } = new URL(origin);
+    return hostname.endsWith('.vercel.app');
+  } catch {
+    return false;
+  }
+};
 
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
+    if (isAllowedOrigin(origin)) {
+      return callback(null, true);
+    }
+
     if (allowedOrigins.indexOf(origin) === -1) {
       return callback(new Error('The CORS policy for this site does not allow access from the specified Origin.'), false);
     }
-    return callback(null, true);
   },
   credentials: true,
 }));
