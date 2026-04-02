@@ -25,6 +25,9 @@ Copy `server/.env.example` to `server/.env` and update:
 - `MONGO_URI` – your MongoDB connection string
 - `JWT_SECRET` – a strong secret key
 
+If you run the frontend without Vite's local dev proxy, copy `client/.env.example` to `client/.env` and set:
+- `VITE_API_BASE_URL` – your backend base URL including `/api`
+
 ### 4. Run Development Servers
 
 **Terminal 1 – Backend:**

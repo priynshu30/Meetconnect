@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-const API = axios.create({ baseURL: '/api' })
+import API from './api'
 
 const getQuestions = async ({ category, page = 1, limit = 10 } = {}) => {
   const params = { page, limit }
