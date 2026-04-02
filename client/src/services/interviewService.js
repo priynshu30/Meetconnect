@@ -8,6 +8,11 @@ const saveMockInterviews = (interviews) => {
   localStorage.setItem(INTERVIEWS_STORAGE_KEY, JSON.stringify(interviews))
 }
 
+const hasMockSession = () => {
+  const token = localStorage.getItem('meetconnect_token') || ''
+  return token.startsWith('mock-token-') || token.startsWith('mock-google-token-')
+}
+
 const isRecoverableApiError = (error) => {
   const status = error?.response?.status
   return !status || status === 401 || status === 404
@@ -25,6 +30,14 @@ const normalizeInterview = (interviewData) => ({
 })
 
 const scheduleInterview = async (interviewData) => {
+  if (hasMockSession()) {
+    const interview = normalizeInterview(interviewData)
+    const interviews = loadMockInterviews()
+    interviews.unshift(interview)
+    saveMockInterviews(interviews)
+    return interview
+  }
+
   try {
     const { data } = await API.post('/interviews', interviewData)
     return data
@@ -44,6 +57,14 @@ const getInterviews = async ({ status, type } = {}) => {
   if (status) params.status = status
   if (type) params.type = type
 
+  if (hasMockSession()) {
+    return loadMockInterviews().filter((interview) => {
+      const matchesStatus = status ? interview.status === status : true
+      const matchesType = type ? interview.type === type : true
+      return matchesStatus && matchesType
+    })
+  }
+
   try {
     const { data } = await API.get('/interviews', { params })
     return data
@@ -59,6 +80,15 @@ const getInterviews = async ({ status, type } = {}) => {
 }
 
 const getInterview = async (id) => {
+  if (hasMockSession()) {
+    const interview = loadMockInterviews().find((entry) => entry._id === id)
+    if (!interview) {
+      throw new Error('Interview not found')
+    }
+
+    return interview
+  }
+
   try {
     const { data } = await API.get(`/interviews/${id}`)
     return data
